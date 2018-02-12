@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2003
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B7ABE047-A311-4B82-BC0A-558D2A8970EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "lib", "lib", "{F08386F9-31DC-49E6-B17F-E7E9EFFE2ABF}"
+	ProjectSection(SolutionItems) = preProject
+		lib\Cecs475.BoardGames.Chess.Model.dll = lib\Cecs475.BoardGames.Chess.Model.dll
+		lib\Cecs475.BoardGames.Chess.View.dll = lib\Cecs475.BoardGames.Chess.View.dll
+		lib\Cecs475.BoardGames.Model.dll = lib\Cecs475.BoardGames.Model.dll
+		lib\Cecs475.BoardGames.View.dll = lib\Cecs475.BoardGames.View.dll
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lab2ChessTests", "test\Lab2ChessTests\Lab2ChessTests.csproj", "{9826C3A5-2A2E-4034-A5F8-A785D61BDDAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9826C3A5-2A2E-4034-A5F8-A785D61BDDAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9826C3A5-2A2E-4034-A5F8-A785D61BDDAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9826C3A5-2A2E-4034-A5F8-A785D61BDDAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9826C3A5-2A2E-4034-A5F8-A785D61BDDAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9826C3A5-2A2E-4034-A5F8-A785D61BDDAE} = {B7ABE047-A311-4B82-BC0A-558D2A8970EB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0398916F-5569-41C8-B137-6942947477BB}
+	EndGlobalSection
+EndGlobal

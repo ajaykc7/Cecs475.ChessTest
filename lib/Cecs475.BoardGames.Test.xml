@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cecs475.BoardGames.Test</name>
+    </assembly>
+    <members>
+        <member name="P:Cecs475.BoardGames.Test.BoardGameTest`3.ConsoleView">
+            <summary>
+            This View can be used to print the board to output.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Test.BoardGameTest`3.Pos(System.Int32,System.Int32)">
+            <summary>
+            Constructs a BoardPosition given integer coordinates.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Test.BoardGameTest`3.Advantage(System.Int32,System.Int32)">
+            <summary>
+            Constructs a BoardAdvantage object given a player and a numerical advantage.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Test.BoardGameTest`3.Apply(`0,`1[])">
+            <summary>
+            Applies the given list of game moves to the given board, one at a time.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Test.BoardGameTest`3.CreateBoardFromMoves(`1[])">
+            <summary>
+            Constructs a new game board by applying the given list of game moves one at a time.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cecs475.BoardGames.Chess.Test</name>
+    </assembly>
+    <members>
+        <member name="M:Cecs475.BoardGames.Chess.Test.ChessTest.Move(Cecs475.BoardGames.Model.BoardPosition,Cecs475.BoardGames.Model.BoardPosition,Cecs475.BoardGames.Chess.Model.ChessMoveType)">
+            <summary>
+            Creates a ChessMove using the given start and end positions.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.ChessTest.Move(System.String)">
+            <summary>
+            Creates a ChessMove from a string involving two positions on the board, e.g., "a2, a4".
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.ChessTest.Pos(System.String)">
+            <summary>
+            Creates a BoardPosition from a rank/file string like "a2"
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.ChessTest.CreateBoardFromMoves(System.String[])">
+            <summary>
+            Creates a new chess board and applies the given list of moves to it immediately.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.ChessTest.CreateBoardFromPositions(System.Object[])">
+            <summary>
+            Creates a new chess board that is empty, except for the given list of pieces
+            to be manually placed. Three values must be given for each piece: a BoardPosition,
+            a ChessPieceType, and a player integer.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.ChessTest.Apply(Cecs475.BoardGames.Chess.Model.ChessBoard,System.String[])">
+            <summary>
+            Applies one or more moves in sequence to the given board.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.ChessTest.GetMovesAtPosition(System.Collections.Generic.IEnumerable{Cecs475.BoardGames.Chess.Model.ChessMove},Cecs475.BoardGames.Model.BoardPosition)">
+            <summary>
+            Filters the given list of moves to only those that start at the given position.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.ChessTest.GetAllPiecesForPlayer(Cecs475.BoardGames.Chess.Model.ChessBoard,System.Int32)">
+            <summary>
+            Returns all chess piece positions controlled by the given player
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.ChessTest.GetPositionsInRank(System.Int32)">
+            <summary>
+            Returns BoardPosition objects representing all squares in the given rank (row).
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.ChessTest.GetPositionsInFile(System.Int32)">
+            <summary>
+            Returns BoardPosition objects representing all squares in the given file (column).
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.NewBoardTests.NewChessBoard">
+            <summary>
+            Simple facts about "new" boards.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.PawnTests.PawnTwoSpaceMove">
+            <summary>
+            Moving pawns one or two spaces.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.PawnTests.PawnTwoSpaceMove_DirectionMatters">
+            <summary>
+            A pawn cannot make a two space movement if it is on the enemy's starting rank.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.PawnTests.PawnCapture">
+            <summary>
+            Pawn diagonal capture.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.PawnTests.PawnCapture_EvenIfBlocked">
+            <summary>
+            Pawn capture even if it can't move forward.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.PawnTests.PawnCapture_NoBackwardsCapture">
+            <summary>
+            Pawn can't capture backwards.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.PawnTests.PawnBorderCapture">
+            <summary>
+            Pawns cannot capture diagonally off the board, wrapping to another row.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.PawnTests.PawnPromoteTest">
+            <summary>
+            Promote a pawn after reaching the final rank.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.PawnTests.PawnPromote_Castling">
+            <summary>
+            Promote a pawn to rook, move the rook, ensure that castling is still allowed.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.PawnTests.PawnPromote_IntoCheckmate">
+            <summary>
+            Promote a pawn and produce check.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Chess.Test.PawnTests.PawnCausingCheck">
+            <summary>
+            Pawns can place enemy king in check.
+            </summary>
+        </member>
+    </members>
+</doc>

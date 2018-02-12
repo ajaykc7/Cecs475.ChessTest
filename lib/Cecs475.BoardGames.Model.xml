@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Cecs475.BoardGames.Model</name>
+    </assembly>
+    <members>
+        <member name="T:Cecs475.BoardGames.Model.BoardDirection">
+            <summary>
+            Represents a direction of movement on a rectangular game board grid.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.BoardDirection.RowDelta">
+            <summary>
+            Negative means "up", positive means "down".
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.BoardDirection.ColDelta">
+            <summary>
+            Negative means "left", positive means "right".
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Model.BoardDirection.Equals(Cecs475.BoardGames.Model.BoardDirection)">
+            <summary>
+            True if the two objects have the same RowDelta and ColDelta.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Model.BoardDirection.Reverse">
+            <summary>
+            Reverses a BoardDirection so that it points in the opposite direction.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Model.BoardDirection.op_UnaryNegation(Cecs475.BoardGames.Model.BoardDirection)">
+            <summary>
+            Reverses a BoardDirection so that it points in the opposite direction.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.BoardDirection.CardinalDirections">
+            <summary>
+            A sequence of 1-square movements in the eight cardinal directions: 
+            north-west, north, north-east, west, east, south-west, south, south-east.
+            </summary>
+        </member>
+        <member name="T:Cecs475.BoardGames.Model.BoardPosition">
+            <summary>
+            Represents a row/column position on a 2D grid board.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.BoardPosition.Row">
+            <summary>
+            The row of the position.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.BoardPosition.Col">
+            <summary>
+            The column of the position.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Model.BoardPosition.Translate(System.Int32,System.Int32)">
+            <summary>
+            Translates the BoardPosition by the given amount in the row and column directions, returning a new
+            position.
+            </summary>
+            <param name="rDelta">the amount to change the new position's row by</param>
+            <param name="cDelta">the amount to change the new position's column by</param>
+            <returns>a new BoardPosition object that has been translated from the source</returns>
+        </member>
+        <member name="M:Cecs475.BoardGames.Model.BoardPosition.Translate(Cecs475.BoardGames.Model.BoardDirection)">
+            <summary>
+            Translates the BoardPosition by the given amount in the row and column directions, returning a new
+            position.
+            </summary>
+            <param name="direction">a BoardDirection object giving the amount to change the new position's row and column by</param>
+            <returns>a new BoardPosition object that has been translated from the source</returns>
+        </member>
+        <member name="M:Cecs475.BoardGames.Model.BoardPosition.Equals(Cecs475.BoardGames.Model.BoardPosition)">
+            <summary>
+            Two board positions are equal if they have the same row and column.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Model.BoardPosition.GetRectangularPositions(System.Int32,System.Int32)">
+            <summary>
+            Returns a sequence of BoardPosition objects representing each square on a given rectangular
+            game board, in row-major order.
+            </summary>
+            <param name="rows">the number of horizontal rows on the board</param>
+            <param name="cols">the number of vertical columns on the board</param>
+        </member>
+        <member name="T:Cecs475.BoardGames.Model.GameAdvantage">
+            <summary>
+            Represents an advantage in a board game, indicating which player is currently "winning", or, 
+            if the game is finished, which player has won the game.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.GameAdvantage.Player">
+            <summary>
+            Which player is winning / has won.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.GameAdvantage.Advantage">
+            <summary>
+            A game-specific amount indicating "how much" the player is winning / has won by.
+            </summary>
+        </member>
+        <member name="T:Cecs475.BoardGames.Model.IGameBoard">
+            <summary>
+            Represents the board model for a particular board game. Can apply moves, get all possible moves, undo moves,
+            and report other state information. 
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Model.IGameBoard.GetPossibleMoves">
+            <summary>
+            Gets a sequence of all possible moves for the current game state.
+            </summary>
+        </member>
+        <member name="M:Cecs475.BoardGames.Model.IGameBoard.ApplyMove(Cecs475.BoardGames.Model.IGameMove)">
+            <summary>
+            Applies a valid move to the current game state.
+            </summary>
+            <param name="move">assumed to be a value from the sequence returned by GetPossibleMoves.</param>
+            <see cref="M:Cecs475.BoardGames.Model.IGameBoard.GetPossibleMoves"/>
+        </member>
+        <member name="M:Cecs475.BoardGames.Model.IGameBoard.UndoLastMove">
+            <summary>
+            Undoes the most recent move, restoring the game state to the moment when the move was applied.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.IGameBoard.MoveHistory">
+            <summary>
+            A list of all moves applied to the game, in the order they were applied.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.IGameBoard.CurrentPlayer">
+            <summary>
+            The player whose turn it currently is, counting from 1 for the first player.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.IGameBoard.IsFinished">
+            <summary>
+            True if the game has finished and a winner has been determined.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.IGameBoard.CurrentAdvantage">
+            <summary>
+            A value indicating which player is winning the game. When IsFinished is true, this value indicates
+            the winner of the game.
+            </summary>
+            <see cref="P:Cecs475.BoardGames.Model.IGameBoard.IsFinished"/>
+        </member>
+        <member name="T:Cecs475.BoardGames.Model.IGameMove">
+            <summary>
+            Represents a move that can be (or has been) applied to a game board.
+            </summary>
+        </member>
+        <member name="P:Cecs475.BoardGames.Model.IGameMove.Player">
+            <summary>
+            The player that applied this move, if the move has been applied to a board. If it has not,
+            this property is undefined.
+            </summary>
+        </member>
+    </members>
+</doc>
