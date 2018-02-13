@@ -35,11 +35,29 @@ namespace Lab2ChessTests {
             ChessBoard board = new ChessBoard();
 
             var possibleMoves = board.GetPossibleMoves();
-            var initialKnightMoves = GetMovesAtPosition(possibleMoves, Pos("b1"));
-            initialKnightMoves.Should().HaveCount(2);
+            var initialKnightMoves = GetMovesAtPosition(possibleMoves, Pos("b8"));
+            initialKnightMoves.Should().HaveCount(2, "the knight has two move position in the initial stage");
 
            // var twoMovesExpected = GetMovesAtPosition(possibleMoves, Pos("b2"));
           //  twoMovesExpected.Should().HaveCount(2); 
+        }
+
+        [Fact]
+        public void PawnPromotionAfterCapture()
+        {
+            ChessBoard board = CreateBoardFromPositions(
+                Pos("b7"), ChessPieceType.Pawn, 1,
+                Pos("a8"), ChessPieceType.Rook, 2,
+                Pos("e1"), ChessPieceType.King, 1,
+                Pos("e8"), ChessPieceType.King, 2);
+
+            board.CurrentAdvantage.Should().Be(Advantage(2, 4), "Player two has a rook and a king, while player one has pawn and king");
+
+            Apply(board, Move("(b7,a8,Queen)"));
+            board.GetPieceAtPosition(Pos("a8")).Player.Should().Be(1, "Player one captured player two's rook");
+            board.CurrentAdvantage.Should().Be(Advantage(1, 9), "Player one should have a gain of 9 and a loss of 1, while " +
+                "player two should have loss of 5 after losing the rook");
+
         }
 
 
