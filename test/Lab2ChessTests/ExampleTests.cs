@@ -381,5 +381,7 @@ namespace Lab2ChessTests {
 			var possMoves = b.GetPossibleMoves();
 			b.IsCheck.Should().BeTrue("black's king is in check from pawn at a7");
 		}
-	}
+
+        
+    }
 }

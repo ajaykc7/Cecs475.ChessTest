@@ -29,6 +29,19 @@ namespace Lab2ChessTests {
 		 *		UndoCastleQueenSide_345678
 		 *	
 		 */
+         [Fact]
+         public void InitialStart()
+        {
+            ChessBoard board = new ChessBoard();
+
+            var possibleMoves = board.GetPossibleMoves();
+            var initialKnightMoves = GetMovesAtPosition(possibleMoves, Pos("b1"));
+            initialKnightMoves.Should().HaveCount(2);
+
+           // var twoMovesExpected = GetMovesAtPosition(possibleMoves, Pos("b2"));
+          //  twoMovesExpected.Should().HaveCount(2); 
+        }
+
 
 		
 	}
