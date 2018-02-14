@@ -175,5 +175,66 @@ namespace Lab2ChessTests {
                 .And.Contain(Move(Pos("e1"), Pos("c1"), ChessMoveType.CastleQueenSide));
         
         }
+
+        /// <summary>
+        /// The test checks possible moves for a king at check. 
+        /// Test : - KingAtCheck
+        /// Player: - Black
+        /// Result: - In the given layout of the board, the king cannot capture the pawn that is checking it, as it would 
+        /// lead to another check. The king cannot also do castling because it is at check. In addition, the black queen cannot 
+        /// capture the white bishop because the king is at check. 
+        /// </summary>
+        [Fact]
+        public void KingCapturePawnAtCheck()
+        {
+            ChessBoard board = CreateBoardFromPositions(
+               Pos("e1"), ChessPieceType.King, 1,
+               Pos("a4"), ChessPieceType.Bishop, 1,
+               Pos("c6"), ChessPieceType.Pawn, 1,
+               Pos("d7"), ChessPieceType.Pawn, 2,
+               Pos("e8"), ChessPieceType.King, 2,
+               Pos("f4"), ChessPieceType.Queen, 2,
+               Pos("h8"), ChessPieceType.Rook, 2);
+
+            //apply move to the white king
+            Apply(board, "e1,d1");
+
+            var possibleMoves = board.GetPossibleMoves();
+
+            //all the moves of black king
+            var blackKingMoves = GetMovesAtPosition(possibleMoves, Pos("e8"));
+
+            board.IsCheck.Should().BeFalse("The black king has not been checked yet.");
+            blackKingMoves.Should().HaveCount(5, "The black king can move to adjacent squares not occupied by friendly piece" +
+                "as well as the castling move")
+                .And.Contain(Move("e8,d8"))
+                .And.Contain(Move("e8,f8"))
+                .And.Contain(Move("e8,f7"))
+                .And.Contain(Move("e8,e7"))
+                .And.Contain(Move(Pos("e8"), Pos("g8"), ChessMoveType.CastleKingSide));
+
+            //Move the white queen
+            Apply(board, "f4,e4");
+            //Move the white pawn to capture black pawn
+            Apply(board, "c6,d7");
+
+            possibleMoves = board.GetPossibleMoves();
+
+            board.IsCheck.Should().BeTrue("The black king is at check by the white pawn");
+
+            //all the moves valid for the black king at check
+            var checkedKingMoves = GetMovesAtPosition(possibleMoves, Pos("e8"));
+            //all the moves valid for the black queen
+            var queenMoves = GetMovesAtPosition(possibleMoves, Pos("f4"));
+
+            queenMoves.Should().HaveCount(0, "The king is at check so the queen should not be able to move unless" +
+                "the move removes the check")
+                .And.NotContain(Move("f4,a4"));
+
+            checkedKingMoves.Should().HaveCount(4, "The black king can move to adjacent squares but cannot do castling " +
+                "or capture the black pawn")
+                .And.NotContain(Move(Pos("e8"), Pos("g8"), ChessMoveType.CastleKingSide))
+                .And.NotContain(Move("e8,d7"));
+        }
     }
 }
