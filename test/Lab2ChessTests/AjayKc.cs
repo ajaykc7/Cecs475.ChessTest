@@ -11,7 +11,7 @@ using FluentAssertions;
 using System.Linq;
 
 namespace Lab2ChessTests {
-    public class MyChessTests : ChessTest
+    public class AjayKc : ChessTest
     {
 
         /* This is where you will write your tests.
@@ -53,40 +53,12 @@ namespace Lab2ChessTests {
                 "in front of the pawns");
 
         }
-
-
-        /// <summary>
-        /// The test checks if the advantage is updated once a pawn is promoted to a queen. 
-        /// Test : - "Tricky" move - Pawn Promotion
-        /// Player: - White
-        /// Piece: - Pawn to Queen
-        /// Position: - b7
-        /// Desired Position: - a8
-        /// Result: - After moving from b7 to a8, the pawn should promote to queen.
-        /// </summary>
+        
         [Fact]
-        public void PawnPromotionAfterCapture()
+        public void EnPassantTest()
         {
-            ChessBoard board = CreateBoardFromPositions(
-                Pos("b7"), ChessPieceType.Pawn, 1,
-                Pos("a8"), ChessPieceType.Rook, 2,
-                Pos("e1"), ChessPieceType.King, 1,
-                Pos("e8"), ChessPieceType.King, 2);
 
-            //Since the two King's point nullify each other, player 2 should have an advantage of 4 (Black Rook's value - White
-            //pawn's value)
-            board.CurrentAdvantage.Should().Be(Advantage(2, 4), "Player two has a rook and a king, while player one has pawn and king");
-
-            //White pawn captures the Rook and promotes to a queen
-            Apply(board, Move("(b7,a8,Queen)"));
-
-            board.GetPieceAtPosition(Pos("a8")).Player.Should().Be(1, "Player one captured player two's rook");
-
-            //The advantage should be in favour of player 1 as he has an extra piece i.e. queen on the board.
-            board.CurrentAdvantage.Should().Be(Advantage(1, 9), "Player one should have a gain of 9 and a loss of 1, while " +
-                "player two should have loss of 5 after losing the rook");
         }
-
         /// <summary>
         /// The test checks if the king is in checkmate or not before and after the promotion. 
         /// Test : - UndoLastMove
@@ -176,6 +148,14 @@ namespace Lab2ChessTests {
         
         }
 
+        /// <summary>
+        /// The test checks possible moves for queen when the friendly king is in check or not. 
+        /// Test : - GetPossibleMoves
+        /// Player: - Black
+        /// Result: - In the given layout of the board, black queen should be able to capture all white pieces 
+        /// in the board. However, when the black king is at check, the queen's possible move is restricted. In
+        /// addition, queen cannot capture two enemy pieces in one move. 
+        /// </summary>
         [Fact]
         public void QueenPossibleMoves()
         {
@@ -187,13 +167,34 @@ namespace Lab2ChessTests {
                 Pos("d5"), ChessPieceType.Queen, 2,
                 Pos("b8"), ChessPieceType.King, 2);
 
+            //apply move to a white piece
+            Apply(board, "e1,e2");
             var possibleMoves = board.GetPossibleMoves();
-            var QueenMoves = GetMovesAtPosition(possibleMoves, Pos("d5"));
+            var queenMoves = GetMovesAtPosition(possibleMoves, Pos("d5"));
 
-            QueenMoves.Should().Contain(Move("d5,e4"), "The queen should be able to capture white pawn at e4")
+            queenMoves.Should().Contain(Move("d5,e4"), "The queen should be able to capture white pawn at e4")
                 .And.Contain(Move("d5,f5"), "The queen should be able to capture white pawn at f5")
                 .And.Contain(Move("d5,a2"), "The queen should be able to capture the white rook at a2");
 
+            board.UndoLastMove();
+
+            //apply move to white rook so black king is in check
+            Apply(board, "a2,b2");
+
+            possibleMoves = board.GetPossibleMoves();
+            queenMoves = GetMovesAtPosition(possibleMoves, Pos("d5"));
+            queenMoves.Should().NotContain(Move("d5,e4"), "The queen should not be able to capture because of check to king")
+                .And.NotContain(Move("d5,f5"), "The queen should not be able to capture because of check to king");
+
+            board.UndoLastMove();
+
+            //apply move to a white pawn
+            Apply(board, "e4,e5");
+
+            possibleMoves = board.GetPossibleMoves();
+            queenMoves = GetMovesAtPosition(possibleMoves, Pos("d5"));
+            queenMoves.Should().Contain(Move("d5,e5"), "The queen can capture the adjacent white pawn at e5")
+                .And.NotContain(Move("d5,f5"), "The queen cannot capture two pawns at the same ");
 
         }
         /// <summary>
@@ -256,5 +257,38 @@ namespace Lab2ChessTests {
                 .And.NotContain(Move(Pos("e8"), Pos("g8"), ChessMoveType.CastleKingSide))
                 .And.NotContain(Move("e8,d7"));
         }
+
+        /// <summary>
+        /// The test checks if the advantage is updated once a pawn is promoted to a queen. 
+        /// Test : - Buster Test
+        /// Player: - White
+        /// Piece: - Pawn to Queen
+        /// Position: - b7
+        /// Desired Position: - a8
+        /// Result: - After moving from b7 to a8, the pawn should promote to queen and the advantage should be 9.
+        /// </summary>
+        [Fact]
+        public void PawnPromotionAfterCapture_213328()
+        {
+            ChessBoard board = CreateBoardFromPositions(
+                Pos("b7"), ChessPieceType.Pawn, 1,
+                Pos("a8"), ChessPieceType.Rook, 2,
+                Pos("e1"), ChessPieceType.King, 1,
+                Pos("e8"), ChessPieceType.King, 2);
+
+            //Since the two King's point nullify each other, player 2 should have an advantage of 4 (Black Rook's value - White
+            //pawn's value)
+            board.CurrentAdvantage.Should().Be(Advantage(2, 4), "Player two has a rook and a king, while player one has pawn and king");
+
+            //White pawn captures the Rook and promotes to a queen
+            Apply(board, Move("(b7,a8,Queen)"));
+
+            board.GetPieceAtPosition(Pos("a8")).Player.Should().Be(1, "Player one captured player two's rook");
+
+            //The advantage should be in favour of player 1 as he has an extra piece i.e. queen on the board.
+            board.CurrentAdvantage.Should().Be(Advantage(1, 9), "Player one should have a gain of 9 and a loss of 1, while " +
+                "player two should have loss of 5 after losing the rook");
+        }
+
     }
 }
