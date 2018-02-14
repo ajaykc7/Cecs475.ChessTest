@@ -57,6 +57,11 @@ namespace Lab2ChessTests {
         [Fact]
         public void EnPassantTest()
         {
+            ChessBoard board = CreateBoardFromMoves(
+                "h2,h4",
+                "b7,b5",
+                ");
+
 
         }
         /// <summary>
