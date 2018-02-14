@@ -176,6 +176,26 @@ namespace Lab2ChessTests {
         
         }
 
+        [Fact]
+        public void QueenPossibleMoves()
+        {
+            ChessBoard board = CreateBoardFromPositions(
+                Pos("a2"), ChessPieceType.Rook, 1,
+                Pos("e1"), ChessPieceType.King, 1,
+                Pos("e4"), ChessPieceType.Pawn, 1,
+                Pos("f5"), ChessPieceType.Pawn, 1,
+                Pos("d5"), ChessPieceType.Queen, 2,
+                Pos("b8"), ChessPieceType.King, 2);
+
+            var possibleMoves = board.GetPossibleMoves();
+            var QueenMoves = GetMovesAtPosition(possibleMoves, Pos("d5"));
+
+            QueenMoves.Should().Contain(Move("d5,e4"), "The queen should be able to capture white pawn at e4")
+                .And.Contain(Move("d5,f5"), "The queen should be able to capture white pawn at f5")
+                .And.Contain(Move("d5,a2"), "The queen should be able to capture the white rook at a2");
+
+
+        }
         /// <summary>
         /// The test checks possible moves for a king at check. 
         /// Test : - KingAtCheck
