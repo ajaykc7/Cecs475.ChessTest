@@ -259,6 +259,8 @@ namespace Lab2ChessTests {
 			var forKing = GetMovesAtPosition(possMoves, Pos("e1"));
 			forKing.Should().HaveCount(2, "king at e1 can castle queenside even after a pawn-promoted rook has moved")
 				.And.BeEquivalentTo(Move("e1, d1"), Move("e1, c1"));
+
+            
 		}
 
 		/// <summary>
