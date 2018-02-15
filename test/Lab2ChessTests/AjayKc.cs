@@ -53,15 +53,42 @@ namespace Lab2ChessTests {
                 "in front of the pawns");
 
         }
-        
+
+        /// <summary>
+        /// The test check when is en passant move is valid
+        /// Test : - "Tricky" test with En Passant Test
+        /// Player: - Black,White
+        /// Result: - En passant is only possible if the pawn being captured moved two sqaures forward in it's recent turn. Or else,
+        /// it is not possible
+        /// </summary>
         [Fact]
         public void EnPassantTest()
         {
             ChessBoard board = CreateBoardFromMoves(
                 "h2,h4",
                 "b7,b5",
-                ");
+                "h4,h5",
+                "b5,b4",
+                "a2,a4",
+                "g7,g5");
 
+            var possibleMoves = board.GetPossibleMoves();
+            var whitePawnPassant = GetMovesAtPosition(possibleMoves, Pos("h5"));
+
+            whitePawnPassant.Should().Contain(Move(Pos("h5"), Pos("g6"), ChessMoveType.EnPassant), "The white pawn should be able to " +
+                "capture black pawn at g5");
+
+            //Apply the en passant move
+            Apply(board, Move(Pos("h5"), Pos("g6"), ChessMoveType.EnPassant));
+
+            var emptySquare = board.GetPieceAtPosition(Pos("g5"));
+            emptySquare.Player.Should().Be(0, "The black pawn previously at g5 should be captured.");
+
+            possibleMoves = board.GetPossibleMoves();
+            var blackPawnPassant = GetMovesAtPosition(possibleMoves, Pos("b4"));
+
+            blackPawnPassant.Should().NotContain(Move(Pos("b4"), Pos("a3"), ChessMoveType.EnPassant), "The black pawn cannot capture the" +
+                "white pawn with en passant rule because the move was made by white two moves ago."); 
 
         }
         /// <summary>
